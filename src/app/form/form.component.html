@@ -1,0 +1,38 @@
+
+<form #userForm="ngForm">
+  <a class="nav-link" [routerLink]="['/']">User List</a>
+    <h2>User Details Form</h2> 
+    <div>
+      Name: 
+      <input type="text" placeholder="Enter your Name" [(ngModel)]="user.name" name="name" required #name="ngModel" autocomplete="off">
+      <div *ngIf="name.invalid && name.touched" class="error" style="color: red; padding-left:10px; padding-top: 10px;">Name is required</div>
+    </div>
+    <br/>
+
+    <div>
+      Email:
+      <input type="email" class="form-control" placeholder="Enter your Email" name="email" [(ngModel)]="user.email" #email="ngModel" required email autocomplete="off">
+      <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger" style="color: red; padding-left:10px; padding-top: 10px;">
+        <div *ngIf="email.errors?.['required']">
+          Email is required.
+        </div>  
+        <div *ngIf="email.errors?.['email']">
+          Please enter a valid email.
+        </div>
+      </div>    
+    </div>    
+    <br/>
+
+    <div>
+      Gender: 
+        <select [(ngModel)]="user.genderId" name="gender" #gender="ngModel" required>
+            <option *ngFor="let gender of genders" [value]="gender.genderId" >{{ gender.genderName }}</option>
+        </select>
+    </div>
+    <br/>
+    <br/>
+
+    <button type="submit" class="submitBtn" (click)="onSubmit()" [disabled]="!userForm.valid">Submit</button>
+  </form>
+
+  
